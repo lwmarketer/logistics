@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="update_country" instance="Lovevox\Logistics\Cron\UpdateCountry" method="execute">
+            <schedule>0 23 1 * *</schedule>
+        </job>
+
+        <job name="update_carrier" instance="Lovevox\GenerateImage\Cron\UpdateCarrier" method="execute">
+            <schedule>30 23 1 * *</schedule>
+        </job>
+
+        <job name="update_order_track" instance="Lovevox\GenerateImage\Cron\UpdateOrderTrack" method="execute">
+            <schedule>0 3 * * *</schedule>
+        </job>
+    </group>
+</config>

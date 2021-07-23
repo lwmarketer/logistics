@@ -1,0 +1,30 @@
+{
+  "name": "lovevox/module-logistics",
+  "description": "17 Track Api Logistics Function",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "authors": [
+    {
+      "name": "Rong Faqiang",
+      "email": "344251875@qq.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "~7.3.0||~7.4.0"
+  },
+  "minimum-stability": "stable",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Lovevox\\Logistics\\": ""
+    }
+  }
+}
+

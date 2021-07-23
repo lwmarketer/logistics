@@ -1,0 +1,116 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Lovevox\Logistics\Block\Adminhtml\Order\View\Tab\Track $block */
+$data = $block->getFullTrack();
+?>
+<section class="admin__page-section edit-order-comments" style="overflow-y: auto;">
+    <div class="edit-order-comments-block">
+        <?php if (count($data) && $data['track_code'] != 0): ?>
+            <div class="tracklist-fill">
+                <div class="tracklist-ps-transit">
+                    <div class="yqcr-ps" data-ps="40">
+                        <div data-name="">
+                            <p class="text-uppercase"
+                               title="<?= $data['track_number']; ?>"><?= $data['track_number']; ?></p>
+                            <p class="text-capitalize"
+                               title="<?= $data['track_status']; ?>"><?= $data['track_status']; ?></p>
+                        </div>
+                    </div>
+                    <div class="yqcr-transit">
+                        <?php if (isset($data['origin']['country_code'])): ?>
+                            <div class="from" data-is="01">
+                                <div class="base-info" data-carrier-type="fc">
+                                    <div>
+                                <span data-carrier-type="fc" title="<?= $data['origin']['country']; ?>"
+                                      data-country="<?= $data['origin']['country_code']; ?>">
+                                    <?= $data['origin']['country']; ?>
+                                </span>
+                                        <i data-carrier-type="fc" title="<?= $data['origin']['carrier']; ?>"
+                                           data-carrier="<?= $data['origin']['carrier_code']; ?>">
+                                            <?= $data['origin']['carrier']; ?>
+                                        </i>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <?php if (isset($data['destination']['country_code'])): ?>
+                        <div class="to" data-is="01">
+                            <div class="base-info" data-carrier-type="sc">
+                                <div>
+                                <span data-carrier-type="sc" title="<?= $data['destination']['carrier']; ?>"
+                                      data-country="<?= $data['destination']['country_code']; ?>">
+                                   <?= $data['destination']['country']; ?>
+                                </span>
+                                    <i data-carrier-type="sc" title="<?= $data['destination']['carrier']; ?>"
+                                       data-carrier="<?= $data['destination']['carrier_code']; ?>">
+                                        <?= $data['destination']['carrier']; ?>
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="tracklist-events scrollable is-enabled scrollable-vertical" yq-data="scrollBox"
+                 style="position: relative;">
+                <div class="scrollable-container" style="height: 292px; width: 785px;">
+                    <div class="scrollable-content" style="width: 768px;">
+                        <?php if (isset($data['new_track_info'])): ?>
+                            <div class="hide">
+                                <p>
+                                    <span data-newevents=""><?= $data['new_track_info']; ?></span>
+                                    <time data-newtime=""><?= $data['new_track_time']; ?></time>
+                                </p>
+                            </div>
+                        <?php endif; ?>
+                        <div class="yqcr-details">
+                            <!-- 目的地 -->
+                            <?php if (isset($data['destination'])): ?>
+                                <dl class="des-block" data-from="en">
+                                    <dt><span>Destination</span></dt>
+                                    <?php if (isset($data['new_track_info'])): ?>
+                                        <dd class="new"><i></i>
+                                            <div>
+                                                <time><?= $data['new_track_time']; ?></time>
+                                                <p><?= $data['new_track_info']; ?></p>
+                                            </div>
+                                        </dd>
+                                    <?php endif; ?>
+                                    <?php foreach ($data['destination']['content'] as $destination): ?>
+                                        <dd class=""><i></i>
+                                            <div>
+                                                <time><?= $destination['a']; ?></time>
+                                                <p><?= trim(str_replace(',,', ',', ($destination['c'] . ',' . $destination['d'] . ',' . $destination['z'])), ','); ?></p>
+                                            </div>
+                                        </dd>
+                                    <?php endforeach; ?>
+                                </dl>
+                            <?php endif; ?>
+                            <!-- 发货地 -->
+                            <?php if (isset($data['origin'])): ?>
+                                <dl class="ori-block" data-from="zh-Hans">
+                                    <dt><span>Origin</span></dt>
+                                    <?php foreach ($data['origin']['content'] as $origin): ?>
+                                        <dd class=""><i></i>
+                                            <div>
+                                                <time><?= $origin['a']; ?></time>
+                                                <p><?= trim(str_replace(',,', ',', ($origin['c'] . ',' . $origin['d'] . ',' . $origin['z'])), ','); ?></p>
+                                            </div>
+                                        </dd>
+                                    <?php endforeach; ?>
+                                </dl>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php else: ?>
+            <?php echo __('no information.'); ?>
+        <?php endif; ?>
+    </div>
+</section>
